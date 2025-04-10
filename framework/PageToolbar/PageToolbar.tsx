@@ -26,6 +26,7 @@ import { PageToolbarView } from './PageToolbarView';
 const FlexGrowDiv = styled.div`
   display: flex;
   flex-grow: 1;
+  
   justify-content: end;
   flex-wrap: wrap;
 `;

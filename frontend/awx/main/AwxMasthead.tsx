@@ -8,7 +8,7 @@ import { PageMastheadDropdown } from '../../../framework/PageMasthead/PageMasthe
 import { PageNotificationsIcon } from '../../../framework/PageMasthead/PageNotificationsIcon';
 import { PageThemeSwitcher } from '../../../framework/PageMasthead/PageThemeSwitcher';
 import { usePageNotifications } from '../../../framework/PageNotifications/PageNotificationsProvider';
-import AwxBrand from '../../assets/awx-logo.svg';
+// import AwxBrand from '../../assets/awx-logo.svg';
 import { useAnsibleAboutModal } from '../../common/AboutModal';
 import { PageRefreshIcon } from '../../common/PageRefreshIcon';
 import { useGet } from '../../common/crud/useGet';
@@ -20,7 +20,7 @@ import { useAwxWebSocketSubscription } from '../common/useAwxWebSocket';
 import { useGetDocsUrl } from '../common/util/useGetDocsUrl';
 import { WorkflowApproval } from '../interfaces/WorkflowApproval';
 import { AwxRoute } from './AwxRoutes';
-
+import DrutLogo from "../../assets/drut_white.png"
 export function AwxMasthead() {
   const { t } = useTranslation();
   const openAnsibleAboutModal = useAnsibleAboutModal();
@@ -32,8 +32,12 @@ export function AwxMasthead() {
     await fetch('/api/logout/');
     refreshActiveAwxUser?.();
   }, [refreshActiveAwxUser]);
+
+  const DrutBrand = () => {
+    return <img src={DrutLogo} style={{ height: "70px" }} />
+  }
   return (
-    <PageMasthead brand={<AwxBrand style={{ height: 60 }} />}>
+    <PageMasthead brand={<DrutBrand />}>
       <ToolbarGroup variant="icon-button-group" style={{ flexGrow: 1 }}>
         <ToolbarItem style={{ marginLeft: 'auto' }}>
           <PageRefreshIcon />
@@ -58,7 +62,7 @@ export function AwxMasthead() {
             </DropdownItem>
             <DropdownItem
               id="about"
-              onClick={() => openAnsibleAboutModal({ brandImageSrc: '/assets/awx-logo.svg' })}
+              onClick={() => openAnsibleAboutModal({ brandImageSrc: '/assets/drut_white.png' })}
               data-cy="masthead-about"
             >
               {t('About')}

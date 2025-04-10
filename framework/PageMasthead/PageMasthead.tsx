@@ -22,6 +22,7 @@ export function PageMasthead(props: { brand: ReactNode; children?: ReactNode }) 
       style={{
         borderBottom: '1px solid #fff4',
         paddingRight: 0,
+        background:'linear-gradient(0deg, #1D587D 0%, rgb(59, 76, 100) 100%)'
       }}
     >
       <PageMastheadToggle />
@@ -37,7 +38,7 @@ export function PageMasthead(props: { brand: ReactNode; children?: ReactNode }) 
           id="toolbar"
           data-cy="toolbar"
           inset={{ default: 'insetNone' }}
-          style={{ padding: 0 }}
+          style={{ padding: 0 ,background: '#2B5271'}}
         >
           <ToolbarContent>{props.children}</ToolbarContent>
         </Toolbar>

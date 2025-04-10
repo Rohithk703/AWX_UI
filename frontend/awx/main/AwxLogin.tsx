@@ -9,6 +9,7 @@ import { useAwxActiveUser } from '../common/useAwxActiveUser';
 import { AwxConfigProvider } from '../common/useAwxConfig';
 import { WebSocketProvider } from '../common/useAwxWebSocket';
 import { DocsVersionProvider } from '../common/useDocsVersion';
+import { useEffect, useState } from 'react';
 
 type AwxAuthOptions = {
   [key: string]: {
@@ -27,6 +28,25 @@ export function AwxLogin(props: { children: React.ReactNode }) {
 
   const { activeAwxUser, refreshActiveAwxUser } = useAwxActiveUser();
 
+  // State for theme detection
+  const [isDarkMode, setIsDarkMode] = useState(
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleThemeChange = (event: MediaQueryListEvent) => {
+      setIsDarkMode(event.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleThemeChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleThemeChange);
+    };
+  }, []);
+
   if (activeAwxUser === undefined) {
     return (
       <Page>
@@ -44,7 +64,7 @@ export function AwxLogin(props: { children: React.ReactNode }) {
           refreshActiveAwxUser?.();
           void mutate(() => true);
         }}
-        brandImg="/assets/awx-logo.svg"
+        brandImg={isDarkMode ? "/assets/drut_white.png":"/assets/drut_dark.png"}
         brandImgAlt={process.env.PRODUCT}
       />
     );

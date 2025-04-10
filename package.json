@@ -110,6 +110,7 @@
     "dagre": "0.8.5",
     "debounce": "2.1.0",
     "favicons-webpack-plugin": "^6.0.1",
+    "file-saver": "^2.0.5",
     "get-value": "3.0.1",
     "html-webpack-plugin": "5.6.0",
     "i18next": "23.11.5",
@@ -122,6 +123,7 @@
     "monaco-editor": "0.50.0",
     "monaco-editor-webpack-plugin": "7.1.0",
     "monaco-yaml": "5.2.1",
+    "npm": "^8.19.4",
     "p-debounce": "4.0.0",
     "p-limit": "5.0.0",
     "react": "18.3.1",
@@ -151,6 +153,7 @@
   "devDependencies": {
     "@4tw/cypress-drag-drop": "2.2.5",
     "@cypress/code-coverage": "3.12.41",
+    "@types/file-saver": "^2.0.7",
     "@types/webpack-dev-server": "4.7.1",
     "@typescript-eslint/eslint-plugin": "7.16.0",
     "@typescript-eslint/parser": "7.16.0",

@@ -5,6 +5,7 @@
 
 .pf-v5-c-page__main {
   overflow: hidden;
+  
 }
 
 .border-top {
@@ -18,7 +19,7 @@
   border-bottom: thin solid #00000028;
 }
 :root:where(.pf-v5-theme-dark) .border-bottom {
-  border-bottom: thin solid #ffffff28;
+  border-bottom: thin solid #2B5271;
 }
 
 .border-left {
@@ -74,14 +75,12 @@ tr.selected:hover {
   background: linear-gradient(#44ccff0b, #44ccff0b) !important;
 }
 
-/* Leaving these here until until we make sure the PF5 upgrade has handled these
 
 .pf-v5-c-toolbar .pf-v5-c-toolbar__content {
   flex-wrap: wrap;
   row-gap: 8px;
 }
 
-*/
 
 /* PF labels do not wrap the addition controls cleanly, so we need to override the default behavior */
 .pf-v5-c-form__group-label {

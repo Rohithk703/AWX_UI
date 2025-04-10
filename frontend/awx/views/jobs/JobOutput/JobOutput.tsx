@@ -1,5 +1,7 @@
-import { PageSection, Skeleton } from '@patternfly/react-core';
-import { useMemo, useState } from 'react';
+import { PageSection, Skeleton, Button } from '@patternfly/react-core';
+import { DownloadIcon } from '@patternfly/react-icons';
+import { saveAs } from 'file-saver';
+import { useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -39,14 +41,34 @@ export function JobOutputInner(props: { job: Job; reloadJob: () => void }) {
   const [filterState, setFilterState] = useState<IFilterState>({});
   const isRunning = isJobRunning(job.status);
   const [isFollowModeEnabled, setIsFollowModeEnabled] = useState(isRunning);
+//  const [jobOutput, setJobOutput] = useState<string>('');
 
   const { results: workflowNodes, refresh } = useAwxGetAllPages<WorkflowNode>(
     awxAPI`/workflow_jobs/${props.job.id.toString() || ''}/workflow_nodes/`
   );
+  async function handleDownloadOutput() {
+    try {
+      const response = await fetch(awxAPI`/jobs/${job.id.toString()}/stdout/?format=txt`);
+      const text = await response.text();
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `job_${job.id}_output.txt`);
+    } catch (error) {
+      console.error('Error fetching job output:', error);
+    }
+
+
+  }
+
+  // useEffect(() => {
+    
+  // }, [job.id]);
+
+  
 
   if (!job) {
     return <Skeleton />;
   }
+
   return (
     <Section variant="light">
       <JobStatusBar job={job} />
@@ -55,14 +77,26 @@ export function JobOutputInner(props: { job: Job; reloadJob: () => void }) {
       ) : (
         <>
           <HostStatusBar counts={job.host_status_counts || {}} />
-          <JobOutputToolbar
-            toolbarFilters={toolbarFilters}
-            filterState={filterState}
-            setFilterState={setFilterState}
-            jobStatus={job.status}
-            isFollowModeEnabled={isFollowModeEnabled}
-            setIsFollowModeEnabled={setIsFollowModeEnabled}
-          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+  <JobOutputToolbar
+    toolbarFilters={toolbarFilters}
+    filterState={filterState}
+    setFilterState={setFilterState}
+    jobStatus={job.status}
+    isFollowModeEnabled={isFollowModeEnabled}
+    setIsFollowModeEnabled={setIsFollowModeEnabled}
+  />
+  <Button
+    variant="primary"
+    icon={<DownloadIcon />}
+    style={{ backgroundColor: 'transparent', border: 'none', color: 'inherit' }}
+    onClick={handleDownloadOutput}
+  >
+    Download Output
+  </Button>
+</div>
+
+
         </>
       )}
       {job.type === 'workflow_job' ? (
